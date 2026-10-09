@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Studio Nave</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Roboto+Mono:wght@400;500&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="top-bar">
+    <span class="material-symbols-outlined brand-icon">rocket_launch</span>
+    <h1 class="title-large">Studio Nave</h1>
+    <span id="demo-chip" class="chip chip-tonal" hidden>Demonstração</span>
+    <span class="spacer"></span>
+    <nav class="segmented" aria-label="Seções">
+      <button data-view="sala" class="selected"><span class="material-symbols-outlined">grid_view</span>Sala</button>
+      <button data-view="painel"><span class="material-symbols-outlined">monitoring</span>Painel</button>
+    </nav>
+    <button id="theme" class="icon-button" title="Alternar tema" aria-label="Alternar tema">
+      <span class="material-symbols-outlined">dark_mode</span>
+    </button>
+  </header>
+
+  <main>
+    <section id="sala" class="view">
+      <div class="section-head">
+        <div>
+          <h2 class="headline-small">Sala de operações</h2>
+          <p class="body-medium muted">Cada módulo é uma sessão do Claude Code. A tripulação são os subagentes.</p>
+        </div>
+        <div class="legend" id="legend"></div>
+      </div>
+      <div id="modules" class="modules"></div>
+      <div id="empty" class="empty card" hidden>
+        <span class="material-symbols-outlined empty-icon">satellite_alt</span>
+        <h3 class="title-medium">Nenhuma sessão por aqui ainda</h3>
+        <p class="body-medium muted">Confira se os hooks estão instalados (<code>python studionave.py instalar</code>) e abra uma nova sessão do Claude Code. Ela aparece aqui em poucos segundos.</p>
+      </div>
+    </section>
+
+    <section id="painel" class="view" hidden>
+      <div class="section-head">
+        <div>
+          <h2 class="headline-small">Painel</h2>
+          <p class="body-medium muted">Execuções no período escolhido.</p>
+        </div>
+        <div class="segmented small" id="period">
+          <button data-hours="6">6 h</button>
+          <button data-hours="12" class="selected">12 h</button>
+          <button data-hours="24">24 h</button>
+        </div>
+      </div>
+      <div id="stats" class="stats"></div>
+      <div class="panel-grid">
+        <div class="card">
+          <h3 class="title-medium">Subagentes por tipo</h3>
+          <div id="types" class="bars"></div>
+        </div>
+        <div class="card">
+          <h3 class="title-medium">Execuções recentes</h3>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Agente</th><th>Projeto</th><th>Estado</th><th>Atualizado</th></tr></thead>
+              <tbody id="runs"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="tooltip" class="tooltip" hidden></div>
+  <div id="offline" class="snackbar" hidden>Sem conexão com o servidor. Confira se o terminal do Studio Nave está aberto.</div>
+
+  <script src="pixel.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
